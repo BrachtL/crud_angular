@@ -1,0 +1,31 @@
+<h2>User Form</h2>
+<form (ngSubmit)="onSubmit()" #userForm="ngForm">
+  <div>
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" required [(ngModel)]="user.first_name" name="first_name" />
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required [(ngModel)]="user.email" name="email" />
+  </div>
+
+  <div>
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" required [(ngModel)]="user.phone" name="phone" />
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+
+
+
+
+<!-- SHOWING USER ERROR MESSAGES ???
+<form (ngSubmit)="onSubmit()" #userForm="ngForm">
+  ... your input fields ...
+
+  <button type="submit" [disabled]="userForm.invalid">Submit</button>
+</form>
+-->
