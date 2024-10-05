@@ -1,15 +1,16 @@
-// src/app/app.component.ts
+/*// src/app/app.module.ts
 import { Component } from '@angular/core';
-import { UserFormComponent } from './users/user-form/user-form.component'; // Import UserFormComponent
-import { UserListComponent } from './users/user-list/user-list.component'; // Import UserListComponent
+import { UserFormComponent } from './users/user-form/user-form.component'; 
+import { UserListComponent } from './users/user-list/user-list.component'; 
 
 @Component({
-  standalone: true, // Marking this component as standalone
+  standalone: true, 
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [UserFormComponent, UserListComponent], // Importing other components here
+  imports: [UserFormComponent, UserListComponent], 
 })
 export class AppComponent {
   title = 'Your App Title';
 }
+*/

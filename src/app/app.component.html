@@ -1,3 +1,4 @@
-<h1>CRUD Application</h1>
-<app-user-form></app-user-form>
+<!-- src/app/app.component.html -->
+<h1>{{ title }}</h1>
+<app-user-form (userCreated)="handleUserCreated($event)"></app-user-form>
 <app-user-list></app-user-list>

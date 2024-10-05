@@ -1,25 +1,39 @@
+<!-- //src/app/users/user-form/user-form.component.html -->
 <h2>User Form</h2>
-<form (ngSubmit)="onSubmit()" #userForm="ngForm">
+<form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
   <div>
     <label for="first_name">First Name:</label>
-    <input type="text" id="first_name" required [(ngModel)]="user.first_name" name="first_name" />
+    <input type="text" id="first_name" required [(ngModel)]="user.first_name" name="first_name" #firstName="ngModel" />
+    <div *ngIf="firstName.invalid && firstName.touched" class="error">
+      First name is required.
+    </div>
   </div>
 
   <div>
     <label for="email">Email:</label>
-    <input type="email" id="email" required [(ngModel)]="user.email" name="email" />
+    <input type="email" id="email" required [(ngModel)]="user.email" name="email" #email="ngModel" />
+    <div *ngIf="email.invalid && email.touched" class="error">
+      Please enter a valid email.
+    </div>
   </div>
 
   <div>
     <label for="phone">Phone:</label>
-    <input type="tel" id="phone" required [(ngModel)]="user.phone" name="phone" />
+    <input type="tel" id="phone" required [(ngModel)]="user.phone" name="phone" #phone="ngModel" />
+    <div *ngIf="phone.invalid && phone.touched" class="error">
+      Phone number is required.
+    </div>
   </div>
 
-  <button type="submit">Submit</button>
+  <button type="submit" [disabled]="userForm.invalid">Submit</button>
 </form>
 
-
-
+<style>
+  .error {
+    color: red;
+    font-size: 0.875rem;
+  }
+</style>
 
 
 <!-- SHOWING USER ERROR MESSAGES ???

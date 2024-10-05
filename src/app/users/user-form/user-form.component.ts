@@ -1,29 +1,38 @@
-import { Component } from '@angular/core';
-import { UserService } from '../user.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { User } from '../user.model';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { UserService } from '../user.service';
+import { FormsModule, NgForm } from '@angular/forms'; // Import FormsModule
+import { CommonModule } from '@angular/common'; // Import CommonModule
 
 @Component({
-  standalone: true, // Mark this component as standalone
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
-  imports: [FormsModule], // Add FormsModule to imports
+  standalone: true,
+  imports: [FormsModule, CommonModule], // Ensure CommonModule is included
 })
 export class UserFormComponent {
-  user: User = { first_name: '', email: '', phone: '' };
+  user: User = {
+    first_name: '',
+    email: '',
+    phone: ''
+  }; // Initialize user model
+
+  @Output() userCreated = new EventEmitter<User>();
 
   constructor(private userService: UserService) {}
 
-  onSubmit(): void {
-    if (this.user.id) {
-      this.userService.updateUser(this.user.id, this.user).subscribe(() => {
-        // Handle success (e.g., navigate or show a message)
-      });
-    } else {
-      this.userService.createUser(this.user).subscribe(() => {
-        // Handle success (e.g., navigate or show a message)
+  onSubmit(userForm: NgForm) {
+    if (userForm.valid) {
+      this.userService.createUser(this.user).subscribe((newUser) => {
+        this.userCreated.emit(newUser);
+        userForm.resetForm(); // Reset the form after submission
+        this.resetUser(); // Reset user model after creation
       });
     }
+  }
+
+  private resetUser() {
+    this.user = { first_name: '', email: '', phone: '' }; // Reset user model to default values
   }
 }

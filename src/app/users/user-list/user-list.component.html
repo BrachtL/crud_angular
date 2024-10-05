@@ -1,7 +1,11 @@
 <h2>User List</h2>
-<ul>
+<ul *ngIf="users.length > 0; else noUsers">
   <li *ngFor="let user of users">
-    {{ user.first_name }} ({{ user.email }}) 
+    {{ user.first_name }} - {{ user.email }} - {{ user.phone }}
     <button (click)="deleteUser(user.id)">Delete</button>
   </li>
 </ul>
+
+<ng-template #noUsers>
+  <p>No users found.</p>
+</ng-template>

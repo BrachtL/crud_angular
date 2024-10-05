@@ -1,3 +1,4 @@
+//src/app/users/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,7 +8,7 @@ import { User } from './user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3001/users'; // Change this to your backend URL
+  private apiUrl = 'http://localhost:3000/users'; 
 
   constructor(private http: HttpClient) { }
 

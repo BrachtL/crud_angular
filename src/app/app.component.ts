@@ -1,14 +1,21 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
-import { UserFormComponent } from './users/user-form/user-form.component'; // Import UserFormComponent
-import { UserListComponent } from './users/user-list/user-list.component'; // Import UserListComponent
+import { RouterModule } from '@angular/router';
+import { UserFormComponent } from './users/user-form/user-form.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: true, // Add this line
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [UserFormComponent, UserListComponent], // Add UserListComponent here
+  standalone: true, 
+  imports: [CommonModule, RouterModule, UserFormComponent, UserListComponent], 
 })
 export class AppComponent {
-  title = 'Your App Title';
+  title = 'CRUD Application';
+
+  handleUserCreated(newUser: any) {
+    console.log('New user created:', newUser);
+  }
 }
