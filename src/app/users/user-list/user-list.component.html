@@ -1,7 +1,8 @@
+<!-- src/users/user-list/user-list.component.html -->
 <h2>User List</h2>
 <ul *ngIf="users.length > 0; else noUsers">
   <li *ngFor="let user of users">
-    {{ user.first_name }} - {{ user.email }} - {{ user.phone }}
+    {{ user.name }} - {{ user.email }} - {{ user.birthdate | date }} - {{ user.is_manager ? 'Manager' : 'Employee' }}
     <button (click)="deleteUser(user.id)">Delete</button>
   </li>
 </ul>

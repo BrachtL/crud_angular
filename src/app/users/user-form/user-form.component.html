@@ -1,11 +1,11 @@
-<!-- //src/app/users/user-form/user-form.component.html -->
+<!-- src/app/users/user-form/user-form.component.html -->
 <h2>User Form</h2>
 <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
   <div>
-    <label for="first_name">First Name:</label>
-    <input type="text" id="first_name" required [(ngModel)]="user.first_name" name="first_name" #firstName="ngModel" />
-    <div *ngIf="firstName.invalid && firstName.touched" class="error">
-      First name is required.
+    <label for="name">Name:</label>
+    <input type="text" id="name" required [(ngModel)]="user.name" name="name" #name="ngModel" />
+    <div *ngIf="name.invalid && name.touched" class="error">
+      Name is required.
     </div>
   </div>
 
@@ -18,11 +18,24 @@
   </div>
 
   <div>
-    <label for="phone">Phone:</label>
-    <input type="tel" id="phone" required [(ngModel)]="user.phone" name="phone" #phone="ngModel" />
-    <div *ngIf="phone.invalid && phone.touched" class="error">
-      Phone number is required.
+    <label for="password">Password:</label>
+    <input type="password" id="password" required [(ngModel)]="user.password_hash" name="password_hash" #password="ngModel" />
+    <div *ngIf="password.invalid && password.touched" class="error">
+      Password is required.
     </div>
+  </div>
+
+  <div>
+    <label for="birthdate">Birthdate:</label>
+    <input type="date" id="birthdate" required [(ngModel)]="user.birthdate" name="birthdate" #birthdate="ngModel" />
+    <div *ngIf="birthdate.invalid && birthdate.touched" class="error">
+      Birthdate is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="is_manager">Is Manager:</label>
+    <input type="checkbox" id="is_manager" [(ngModel)]="user.is_manager" name="is_manager" />
   </div>
 
   <button type="submit" [disabled]="userForm.invalid">Submit</button>
@@ -34,7 +47,6 @@
     font-size: 0.875rem;
   }
 </style>
-
 
 <!-- SHOWING USER ERROR MESSAGES ???
 <form (ngSubmit)="onSubmit()" #userForm="ngForm">
