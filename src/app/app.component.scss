@@ -1,5 +1,4 @@
-//src/app/app.component.scss
-
+/* src/app/app.component.scss */
 h1 {
   font-size: 2rem;
   color: #333;
@@ -11,4 +10,8 @@ h1 {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
+  background-color: #f8f9fa; // Light background for better contrast
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

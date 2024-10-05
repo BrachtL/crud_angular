@@ -1,12 +1,19 @@
 <!-- src/users/user-list/user-list.component.html -->
 <h2>User List</h2>
-<ul *ngIf="users.length > 0; else noUsers">
-  <li *ngFor="let user of users">
-    {{ user.name }} - {{ user.email }} - {{ user.birthdate | date }} - {{ user.is_manager ? 'Manager' : 'Employee' }}
-    <button (click)="deleteUser(user.id)">Delete</button>
-  </li>
-</ul>
+<div class="user-list-container" *ngIf="users.length > 0; else noUsers">
+  <ul>
+    <li *ngFor="let user of users" class="user-item">
+      <div class="user-info">
+        <span class="user-name">{{ user.name }}</span>
+        <span class="user-email">{{ user.email }}</span>
+        <span class="user-birthdate">{{ user.birthdate | date }}</span>
+        <span class="user-role">{{ user.is_manager ? 'Manager' : 'Employee' }}</span>
+      </div>
+      <button class="delete-button" (click)="deleteUser(user.id)">Delete</button>
+    </li>
+  </ul>
+</div>
 
 <ng-template #noUsers>
-  <p>No users found.</p>
+  <p class="no-users-message">No users found.</p>
 </ng-template>
