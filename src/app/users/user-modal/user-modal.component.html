@@ -1,0 +1,23 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <h2>Edit User</h2>
+    <div class="modal-body">
+      <div class="user-info">
+        <img *ngIf="user.profile_pic_url" [src]="user.profile_pic_url" alt="{{ user.name }}'s profile picture" class="modal__profile-pic" />
+        <p><strong>Name:</strong> <input [(ngModel)]="user.name" /></p>
+        <p><strong>Email:</strong> <input [(ngModel)]="user.email" /></p>
+        <p><strong>Role:</strong>
+          <select [(ngModel)]="user.is_manager">
+            <option [ngValue]="true">Manager</option>
+            <option [ngValue]="false">Employee</option>
+          </select>
+        </p>
+        <p><strong>Birthdate:</strong> <input type="date" [(ngModel)]="user.birthdate" /></p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="updateUser()">Save Changes</button>
+      <button (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>

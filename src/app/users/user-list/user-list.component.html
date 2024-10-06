@@ -1,6 +1,6 @@
 <h2 class="user-list__title">User List</h2>
 <div class="user-list" *ngIf="users.length > 0; else noUsers">
-  <div *ngFor="let user of users" [ngClass]="{'user-card--manager': user.is_manager}" class="user-card">
+  <div *ngFor="let user of users" [ngClass]="{'user-card--manager': user.is_manager}" class="user-card" (click)="onUserClick(user)">
     <div class="user-info">
       <img *ngIf="user.profile_pic_url" [src]="user.profile_pic_url" alt="{{ user.name }}'s profile picture" class="user-card__profile-pic" />
       <p><strong>Name:</strong> {{ user.name }}</p>
@@ -11,6 +11,14 @@
     <button class="user-card__delete" (click)="deleteUser(user.id)">Delete</button>
   </div>
 </div>
+
 <ng-template #noUsers>
   <p class="user-list__no-users">No users found.</p>
 </ng-template>
+
+<app-user-modal 
+  *ngIf="isModalOpen && selectedUser" 
+  [user]="selectedUser" 
+  (userUpdated)="handleUserUpdated($event)" 
+  (close)="closeModal()">
+</app-user-modal>
