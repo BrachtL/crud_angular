@@ -1,50 +1,95 @@
 <!-- src/app/users/user-form/user-form.component.html -->
-<h2>User Form</h2>
-<form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" class="user-form">
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" id="name" required [(ngModel)]="user.name" name="name" #name="ngModel" />
-    <div *ngIf="name.invalid && name.touched" class="error">
-      Name is required.
+<div class="user-form-container">
+  <h2 class="user-form-container__title">User Form</h2>
+  <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" class="user-form">
+    
+    <!-- Name Input -->
+    <div class="user-form__group">
+      <label for="name" class="user-form__label">Name:</label>
+      <input 
+        type="text" 
+        id="name" 
+        required 
+        [(ngModel)]="user.name" 
+        name="name" 
+        #name="ngModel" 
+        class="user-form__input"
+      />
+      <div *ngIf="name.invalid && name.touched" class="user-form__error">
+        Name is required.
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" id="email" required [(ngModel)]="user.email" name="email" #email="ngModel" />
-    <div *ngIf="email.invalid && email.touched" class="error">
-      Please enter a valid email.
+    <!-- Email Input -->
+    <div class="user-form__group">
+      <label for="email" class="user-form__label">Email:</label>
+      <input 
+        type="email" 
+        id="email" 
+        required 
+        [(ngModel)]="user.email" 
+        name="email" 
+        #email="ngModel" 
+        class="user-form__input"
+      />
+      <div *ngIf="email.invalid && email.touched" class="user-form__error">
+        Please enter a valid email.
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" id="password" required [(ngModel)]="user.password_hash" name="password_hash" #password="ngModel" />
-    <div *ngIf="password.invalid && password.touched" class="error">
-      Password is required.
+    <!-- Password Input -->
+    <div class="user-form__group">
+      <label for="password" class="user-form__label">Password:</label>
+      <input 
+        type="password" 
+        id="password" 
+        required 
+        [(ngModel)]="user.password_hash" 
+        name="password_hash" 
+        #password="ngModel" 
+        class="user-form__input"
+      />
+      <div *ngIf="password.invalid && password.touched" class="user-form__error">
+        Password is required.
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="birthdate">Birthdate:</label>
-    <input type="date" id="birthdate" required [(ngModel)]="user.birthdate" name="birthdate" #birthdate="ngModel" />
-    <div *ngIf="birthdate.invalid && birthdate.touched" class="error">
-      Birthdate is required.
+    <!-- Birthdate Input -->
+    <div class="user-form__group">
+      <label for="birthdate" class="user-form__label">Birthdate:</label>
+      <input 
+        type="date" 
+        id="birthdate" 
+        required 
+        [(ngModel)]="user.birthdate" 
+        name="birthdate" 
+        #birthdate="ngModel" 
+        class="user-form__input"
+      />
+      <div *ngIf="birthdate.invalid && birthdate.touched" class="user-form__error">
+        Birthdate is required.
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label for="is_manager">Is Manager:</label>
-    <input type="checkbox" id="is_manager" [(ngModel)]="user.is_manager" name="is_manager" />
-  </div>
+    <!-- Is Manager Input -->
+    <div class="user-form__group user-form__group--checkbox">
+      <label for="is_manager" class="user-form__label">Is Manager:</label>
+      <input 
+        type="checkbox" 
+        id="is_manager" 
+        [(ngModel)]="user.is_manager" 
+        name="is_manager" 
+        class="user-form__checkbox"
+      />
+    </div>
 
-  <button type="submit" [disabled]="userForm.invalid" class="submit-button">Submit</button>
-</form>
-
-<!-- SHOWING USER ERROR MESSAGES ???
-<form (ngSubmit)="onSubmit()" #userForm="ngForm">
-  ... your input fields ...
-
-  <button type="submit" [disabled]="userForm.invalid">Submit</button>
-</form>
--->
+    <!-- Submit Button -->
+    <button 
+      type="submit" 
+      [disabled]="userForm.invalid" 
+      class="user-form__submit-button"
+    >
+      Submit
+    </button>
+  </form>
+</div>
