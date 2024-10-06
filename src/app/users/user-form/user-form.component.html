@@ -83,6 +83,18 @@
       />
     </div>
 
+    <!-- Profile Picture Input -->
+    <div class="user-form__group">
+      <label for="profilePic" class="user-form__label">Profile Picture:</label>
+      <input 
+        type="file" 
+        id="profilePic" 
+        (change)="onFileChange($event)" 
+        accept="image/*" 
+        class="user-form__input"
+      />
+    </div>
+
     <!-- Submit Button -->
     <button 
       type="submit" 
