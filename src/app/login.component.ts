@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,16 +22,17 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    this.authService.login(this.email, this.password).subscribe(
-      (response) => {
-        if (response && response.message == "Login successful") {
-          this.router.navigate(['/']); 
+    this.authService.login(this.email, this.password).pipe(
+      tap((response) => {
+        if (response && response.message === 'Login successful') {
+          this.router.navigate(['/']);
         }
-      },
-      (error) => {
-        this.errorMessage = 'Invalid credentials. Please try again.'; 
-        console.error('Login error', error); 
-      }
-    );
+      }),
+      catchError((error) => {
+        this.errorMessage = 'Invalid credentials. Please try again.';
+        console.error('Login error', error);
+        return of(null); // Return an observable of null to keep the stream alive
+      })
+    ).subscribe(); // Subscribe to execute the observable
   }
 }
