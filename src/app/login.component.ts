@@ -22,13 +22,13 @@ export class LoginComponent {
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe(
       (response) => {
-        if (response && response.access_token) {
-          this.router.navigate(['/']); // Navigate to the main page after successful login
+        if (response && response.message == "Login successful") {
+          this.router.navigate(['/']); 
         }
       },
       (error) => {
-        this.errorMessage = 'Invalid credentials. Please try again.'; // Handle error message for invalid credentials
-        console.error('Login error', error); // Log the error for debugging
+        this.errorMessage = 'Invalid credentials. Please try again.'; 
+        console.error('Login error', error); 
       }
     );
   }
