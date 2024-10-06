@@ -1,4 +1,3 @@
-/* src/app/users/user-form/user-form.component.css */
 .user-form-container {
   max-width: 600px;
   margin: 0 auto;
@@ -75,4 +74,27 @@
 
 .user-form__submit-button:not(:disabled):hover {
   background-color: #0056b3;
+}
+
+.user-form__info {
+  font-size: 0.875rem;
+  color: #666; /* Light grey to indicate it's informative */
+  margin-top: 0.5rem;
+}
+
+.user-form__group--checkbox-inline {
+  display: flex;
+  align-items: center; /* Aligns the checkbox and label vertically */
+}
+
+.user-form__group--checkbox-inline .user-form__label {
+  margin-right: 10px; /* Adds space between the label and checkbox */
+}
+
+/* Adjust the size of the checkbox */
+.user-form__checkbox {
+  width: 20px;
+  height: 20px;
+  transform: scale(1.3); /* Makes the checkbox larger */
+  margin-right: 10px; /* Reduces the space between the checkbox and the label */
 }
