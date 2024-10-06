@@ -1,4 +1,4 @@
-<div class="modal-overlay" (click)="closeModal()">
+<div class="modal-overlay">
   <div class="modal-container" (click)="$event.stopPropagation()">
     <h2 class="modal-title">User Form</h2>
     <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" class="modal-form">
