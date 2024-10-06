@@ -1,14 +1,14 @@
 <h2 class="user-list__title">User List</h2>
 <div class="user-list" *ngIf="users.length > 0; else noUsers">
-  <div *ngFor="let user of users" class="user-card">
+  <div *ngFor="let user of users" [ngClass]="{'user-card--manager': user.is_manager}" class="user-card">
     <div class="user-info">
-      <p><strong>ID:</strong> {{ user.id }}</p>
+      <img *ngIf="user.profile_pic_url" [src]="user.profile_pic_url" alt="{{ user.name }}'s profile picture" class="user-card__profile-pic" />
       <p><strong>Name:</strong> {{ user.name }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Role:</strong> {{ user.is_manager ? 'Manager' : 'Employee' }}</p>
       <p><strong>Birthdate:</strong> {{ user.birthdate | date }}</p>
     </div>
-    <button class="delete-button" (click)="deleteUser(user.id)">Delete</button>
+    <button class="user-card__delete" (click)="deleteUser(user.id)">Delete</button>
   </div>
 </div>
 <ng-template #noUsers>

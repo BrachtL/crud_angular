@@ -22,6 +22,12 @@ export class UserListComponent implements OnInit {
   loadUsers() {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
+
+      // Log the profile picture URL of each user
+      this.users.forEach(user => {
+        console.log(`User: ${user.name}, Profile Picture URL: ${user.profile_pic_url}`);
+      });
+      
     });
   }
 
