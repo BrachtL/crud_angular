@@ -20,5 +20,5 @@
   *ngIf="isModalOpen && selectedUser" 
   [user]="selectedUser" 
   (userUpdated)="handleUserUpdated($event)" 
-  (close)="closeModal()">
+  (closeModalEvent)="closeModal()">
 </app-user-modal>

@@ -1,23 +1,95 @@
-<div class="modal-overlay">
-  <div class="modal-content">
-    <h2>Edit User</h2>
-    <div class="modal-body">
-      <div class="user-info">
-        <img *ngIf="user.profile_pic_url" [src]="user.profile_pic_url" alt="{{ user.name }}'s profile picture" class="modal__profile-pic" />
-        <p><strong>Name:</strong> <input [(ngModel)]="user.name" /></p>
-        <p><strong>Email:</strong> <input [(ngModel)]="user.email" /></p>
-        <p><strong>Role:</strong>
-          <select [(ngModel)]="user.is_manager">
-            <option [ngValue]="true">Manager</option>
-            <option [ngValue]="false">Employee</option>
-          </select>
-        </p>
-        <p><strong>Birthdate:</strong> <input type="date" [(ngModel)]="user.birthdate" /></p>
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <h2 class="modal-title">User Form</h2>
+    <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" class="modal-form">
+
+      <!-- Name Input -->
+      <div class="modal-form__group">
+        <label for="name" class="modal-form__label">Name:</label>
+        <input
+          type="text"
+          id="name"
+          required
+          [(ngModel)]="user.name"
+          name="name"
+          #name="ngModel"
+          class="modal-form__input"
+        />
+        <div *ngIf="nameErrorMessage && name.touched && name.invalid || nameErrorMessage !== 'Required'" class="modal-form__error">
+          {{ nameErrorMessage }}
+        </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button (click)="updateUser()">Save Changes</button>
-      <button (click)="closeModal()">Close</button>
-    </div>
+
+      <!-- Email Input -->
+      <div class="modal-form__group">
+        <label for="email" class="modal-form__label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          required
+          [(ngModel)]="user.email"
+          name="email"
+          #email="ngModel"
+          class="modal-form__input"
+        />
+        <div *ngIf="emailErrorMessage && email.touched && email.invalid || emailErrorMessage !== 'Required'" class="modal-form__error">
+          {{ emailErrorMessage }}
+        </div>
+      </div>
+
+      <!-- Birthdate Input -->
+      <div class="modal-form__group">
+        <label for="birthdate" class="modal-form__label">Birthdate:</label>
+        <input
+          type="date"
+          id="birthdate"
+          required
+          [(ngModel)]="user.birthdate"
+          name="birthdate"
+          #birthdate="ngModel"
+          class="modal-form__input"
+        />
+        <div *ngIf="birthdateErrorMessage && birthdate.touched && birthdate.invalid || birthdateErrorMessage !== 'Required'" class="modal-form__error">
+          {{ birthdateErrorMessage }}
+        </div>
+      </div>
+
+      <!-- Is Manager Checkbox -->
+      <div class="modal-form__group modal-form__group--checkbox-inline">
+        <label for="is_manager" class="modal-form__label">Is Manager:</label>
+        <input
+          type="checkbox"
+          id="is_manager"
+          [(ngModel)]="user.is_manager"
+          name="is_manager"
+          class="modal-form__checkbox"
+        />
+      </div>
+
+      <!-- Profile Picture Input -->
+      <div class="modal-form__group">
+        <label for="profilePic" class="modal-form__label">Profile Picture:</label>
+        <input
+          type="file"
+          id="profilePic"
+          (change)="onFileChange($event)"
+          accept="image/*"
+          class="modal-form__input"
+        />
+        <p class="modal-form__info">Max resolution of 1500px in any dimension</p>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        [disabled]="userForm.invalid"
+        class="modal-form__submit-button"
+      >
+        Submit
+      </button>
+
+      <!-- Cancel Button -->
+      <button type="button" class="modal-form__cancel-button" (click)="closeModal()">Cancel</button>
+    </form>
   </div>
 </div>
