@@ -15,8 +15,8 @@
         #name="ngModel" 
         class="user-form__input"
       />
-      <div *ngIf="name.invalid && name.touched" class="user-form__error">
-        Name is required.
+      <div *ngIf="nameErrorMessage && name.touched && name.invalid || nameErrorMessage != 'Required'" class="user-form__error">
+        {{ nameErrorMessage }}
       </div>
     </div>
 
@@ -32,8 +32,8 @@
         #email="ngModel" 
         class="user-form__input"
       />
-      <div *ngIf="email.invalid && email.touched" class="user-form__error">
-        Please enter a valid email.
+      <div *ngIf="emailErrorMessage && email.touched && email.invalid || emailErrorMessage != 'Required'" class="user-form__error">
+        {{ emailErrorMessage }}
       </div>
     </div>
 
@@ -49,8 +49,8 @@
         #password="ngModel" 
         class="user-form__input"
       />
-      <div *ngIf="password.invalid && password.touched" class="user-form__error">
-        Password is required.
+      <div *ngIf="passwordErrorMessage && password.touched && password.invalid || passwordErrorMessage != 'Required'" class="user-form__error">
+        {{ passwordErrorMessage }}
       </div>
     </div>
 
@@ -66,8 +66,8 @@
         #birthdate="ngModel" 
         class="user-form__input"
       />
-      <div *ngIf="birthdate.invalid && birthdate.touched" class="user-form__error">
-        Birthdate is required.
+      <div *ngIf="birthdateErrorMessage && birthdate.touched && birthdate.invalid || birthdateErrorMessage != 'Required'" class="user-form__error">
+        {{ birthdateErrorMessage }}
       </div>
     </div>
 
