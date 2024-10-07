@@ -32,7 +32,9 @@ export class UserListComponent implements OnInit {
         return of([]); 
       })
     ).subscribe((users) => {
-      this.users = users;
+      this.users = users.sort((a, b) => {
+        return new Date(b.creation_datetime).getTime() - new Date(a.creation_datetime).getTime();
+      });
     });
   }
 
