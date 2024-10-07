@@ -2,7 +2,17 @@
 <div class="user-list" *ngIf="users.length > 0; else noUsers">
   <div *ngFor="let user of users" [ngClass]="{'user-card--manager': user.is_manager}" class="user-card" (click)="onUserClick(user)">
     <div class="user-info">
-      <img *ngIf="user.profile_pic_url" [src]="user.profile_pic_url" alt="{{ user.name }}'s profile picture" class="user-card__profile-pic" />
+      <img *ngIf="user.profile_pic_url; else fallbackImage" 
+           [src]="user.profile_pic_url" 
+           alt="{{ user.name }}'s profile picture" 
+           class="user-card__profile-pic" />
+
+      <ng-template #fallbackImage>
+        <img src="https://t3.ftcdn.net/jpg/06/33/54/78/360_F_633547842_AugYzexTpMJ9z1YcpTKUBoqBF0CUCk10.jpg" 
+             alt="Default profile picture" 
+             class="user-card__profile-pic" />
+      </ng-template>
+
       <p><strong>Name:</strong> {{ user.name }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Role:</strong> {{ user.is_manager ? 'Manager' : 'Employee' }}</p>
