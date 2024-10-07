@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CloudinaryService } from '../../cloudinary.service';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-user-modal',
@@ -53,30 +54,31 @@ export class UserModalComponent {
   async onSubmit(userForm: NgForm) {
     this.errorMessage = ''; 
     this.clearFieldErrors(); 
-
+  
     if (this.validateFields()) {
       if (this.file) {
         try {
           const imageUrl = await this.cloudinaryService.uploadImage(this.file);
-          this.tempUser.profile_pic_url = imageUrl; 
+          this.tempUser.profile_pic_url = imageUrl; // Update tempUser instead of user
         } catch (error) {
           console.error('Image upload failed:', error);
           this.errorMessage = 'Image upload failed. Please try again.';
           return;
         }
       }
-
-      this.userService.createUser(this.tempUser).subscribe(
-        (newUser) => {
+  
+      this.userService.createUser(this.tempUser).pipe(
+        tap((newUser) => {
           this.userUpdated.emit(newUser); 
           userForm.resetForm();
           this.resetUser();
-        },
-        (error) => {
+        }),
+        catchError((error) => {
           console.error('User creation failed:', error);
           this.errorMessage = 'User creation failed. Please try again.';
-        }
-      );
+          return of(null); // Return a fallback value
+        })
+      ).subscribe(); // Subscribing to trigger the observable
     }
   }
 
