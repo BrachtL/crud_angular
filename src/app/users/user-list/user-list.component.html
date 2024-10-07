@@ -8,7 +8,7 @@
       <p><strong>Role:</strong> {{ user.is_manager ? 'Manager' : 'Employee' }}</p>
       <p><strong>Birthdate:</strong> {{ user.birthdate | date }}</p>
     </div>
-    <button class="user-card__delete" (click)="deleteUser(user.id)">Delete</button>
+    <button class="user-card__delete" (click)="deleteUser(user.id, $event)">Delete</button>
   </div>
 </div>
 

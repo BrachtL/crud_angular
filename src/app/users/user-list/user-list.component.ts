@@ -36,7 +36,11 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  deleteUser(id?: number) {
+  deleteUser(id?: number, event?: MouseEvent) {
+    if (event) {
+      event.stopPropagation(); 
+    }
+    
     if (id) {
       this.userService.deleteUser(id).pipe(
         catchError((error) => {
