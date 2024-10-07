@@ -10,7 +10,7 @@
           type="text"
           id="name"
           required
-          [(ngModel)]="user.name"
+          [(ngModel)]="tempUser.name" 
           name="name"
           #name="ngModel"
           class="modal-form__input"
@@ -27,7 +27,7 @@
           type="email"
           id="email"
           required
-          [(ngModel)]="user.email"
+          [(ngModel)]="tempUser.email" 
           name="email"
           #email="ngModel"
           class="modal-form__input"
@@ -44,7 +44,7 @@
           type="date"
           id="birthdate"
           required
-          [(ngModel)]="user.birthdate"
+          [(ngModel)]="tempUser.birthdate" 
           name="birthdate"
           #birthdate="ngModel"
           class="modal-form__input"
@@ -60,7 +60,7 @@
         <input
           type="checkbox"
           id="is_manager"
-          [(ngModel)]="user.is_manager"
+          [(ngModel)]="tempUser.is_manager" 
           name="is_manager"
           class="modal-form__checkbox"
         />
@@ -90,6 +90,10 @@
 
       <!-- Cancel Button -->
       <button type="button" class="modal-form__cancel-button" (click)="closeModal()">Cancel</button>
+
     </form>
+    <div *ngIf="errorMessage" class="modal-form__error">
+      {{ errorMessage }}
+    </div>
   </div>
 </div>

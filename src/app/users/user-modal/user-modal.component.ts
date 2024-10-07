@@ -25,7 +25,9 @@ export class UserModalComponent {
 
   @Output() userUpdated = new EventEmitter<User>(); 
   @Output() closeModalEvent = new EventEmitter<void>(); 
+
   file: File | null = null;
+  tempUser: User; 
   errorMessage: string = '';
 
   // Error messages for validation
@@ -33,7 +35,13 @@ export class UserModalComponent {
   emailErrorMessage: string = 'Required';
   birthdateErrorMessage: string = 'Required';
 
-  constructor(private userService: UserService, private cloudinaryService: CloudinaryService) {}
+  constructor(private userService: UserService, private cloudinaryService: CloudinaryService) {
+    this.tempUser = { ...this.user }; 
+  }
+
+  ngOnChanges() {
+    this.tempUser = { ...this.user };
+  }
 
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -50,7 +58,7 @@ export class UserModalComponent {
       if (this.file) {
         try {
           const imageUrl = await this.cloudinaryService.uploadImage(this.file);
-          this.user.profile_pic_url = imageUrl;
+          this.tempUser.profile_pic_url = imageUrl; 
         } catch (error) {
           console.error('Image upload failed:', error);
           this.errorMessage = 'Image upload failed. Please try again.';
@@ -58,7 +66,7 @@ export class UserModalComponent {
         }
       }
 
-      this.userService.createUser(this.user).subscribe(
+      this.userService.createUser(this.tempUser).subscribe(
         (newUser) => {
           this.userUpdated.emit(newUser); 
           userForm.resetForm();
@@ -78,15 +86,7 @@ export class UserModalComponent {
   }
 
   resetUser() {
-    this.user = {
-      id: 0,
-      name: '',
-      email: '',
-      birthdate: new Date(),
-      is_manager: false,
-      creation_datetime: new Date().toISOString(),
-      profile_pic_url: ''
-    };
+    this.tempUser = { ...this.user }; 
     this.file = null; 
   }
 
@@ -100,31 +100,31 @@ export class UserModalComponent {
     let valid = true;
 
     // Check Name
-    const nameRegex = /^[A-Za-zÀ-ÿ\s]{4,}$/; // At least 4 characters long
-    if (!this.user.name || !nameRegex.test(this.user.name)) {
+    const nameRegex = /^[A-Za-zÀ-ÿ\s]{4,}$/; 
+    if (!this.tempUser.name || !nameRegex.test(this.tempUser.name)) {
       this.nameErrorMessage = 'Name must be at least 4 characters long and contain no special characters.';
       valid = false;
     }
 
     // Check Email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
-    if (!this.user.email || !emailRegex.test(this.user.email)) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    if (!this.tempUser.email || !emailRegex.test(this.tempUser.email)) {
       this.emailErrorMessage = 'Email must be a valid email address.';
       valid = false;
     }
 
     // Check Birthdate
     const currentYear = new Date().getFullYear();
-    const birthdateYear = new Date(this.user.birthdate).getFullYear();
-    if (!this.user.birthdate) {
+    const birthdateYear = new Date(this.tempUser.birthdate).getFullYear();
+    if (!this.tempUser.birthdate) {
       this.birthdateErrorMessage = 'Birthdate is required';
       valid = false;
     } else if (birthdateYear < 1900) {
       this.birthdateErrorMessage = 'Birthdate must be greater than 1900.';
       valid = false;
     } else {
-      const age = currentYear - birthdateYear; // Calculate age
-      if (age < 13 || (age === 13 && new Date().getTime() < new Date(birthdateYear + 13, new Date(this.user.birthdate).getMonth(), new Date(this.user.birthdate).getDate()).getTime())) {
+      const age = currentYear - birthdateYear; 
+      if (age < 13 || (age === 13 && new Date().getTime() < new Date(birthdateYear + 13, new Date(this.tempUser.birthdate).getMonth(), new Date(this.tempUser.birthdate).getDate()).getTime())) {
         this.birthdateErrorMessage = 'You must be at least 13 years old.';
         valid = false;
       }
