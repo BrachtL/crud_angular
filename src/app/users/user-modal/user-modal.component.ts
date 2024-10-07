@@ -91,25 +91,43 @@ export class UserModalComponent {
   }
 
   clearFieldErrors() {
-    this.nameErrorMessage = 'Required';
-    this.emailErrorMessage = 'Required';
-    this.birthdateErrorMessage = 'Required';
+    this.nameErrorMessage = '';
+    this.emailErrorMessage = '';
+    this.birthdateErrorMessage = '';
   }
 
   validateFields(): boolean {
     let valid = true;
 
-    if (!this.user.name) {
-      this.nameErrorMessage = 'Name is required';
+    // Check Name
+    const nameRegex = /^[A-Za-zÀ-ÿ\s]{4,}$/; // At least 4 characters long
+    if (!this.user.name || !nameRegex.test(this.user.name)) {
+      this.nameErrorMessage = 'Name must be at least 4 characters long and contain no special characters.';
       valid = false;
     }
-    if (!this.user.email) {
-      this.emailErrorMessage = 'Email is required';
+
+    // Check Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+    if (!this.user.email || !emailRegex.test(this.user.email)) {
+      this.emailErrorMessage = 'Email must be a valid email address.';
       valid = false;
     }
+
+    // Check Birthdate
+    const currentYear = new Date().getFullYear();
+    const birthdateYear = new Date(this.user.birthdate).getFullYear();
     if (!this.user.birthdate) {
       this.birthdateErrorMessage = 'Birthdate is required';
       valid = false;
+    } else if (birthdateYear < 1900) {
+      this.birthdateErrorMessage = 'Birthdate must be greater than 1900.';
+      valid = false;
+    } else {
+      const age = currentYear - birthdateYear; // Calculate age
+      if (age < 13 || (age === 13 && new Date().getTime() < new Date(birthdateYear + 13, new Date(this.user.birthdate).getMonth(), new Date(this.user.birthdate).getDate()).getTime())) {
+        this.birthdateErrorMessage = 'You must be at least 13 years old.';
+        valid = false;
+      }
     }
 
     return valid;
